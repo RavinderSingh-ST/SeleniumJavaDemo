@@ -4,6 +4,7 @@ import Enums.WebElementEnums.LoginPageEnums;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import static HelperMethods.FetchExcelFileData.fetchUserRegisterDataExcel;
+import static HelperMethods.SeleniumMethods.waitForElement;
 import static Pages.RegisterPage.uniqueUsername;
 
 public class LoginPage {
@@ -17,9 +18,11 @@ public class LoginPage {
         this.driver = driver;
     }
 
-    public void userLogin() {
+    public void userLogin() throws InterruptedException {
+        waitForElement();
         driver.findElement(By.xpath(String.format(loginInputBoxes, LoginPageEnums.EmailInputBoxClass.value))).sendKeys(uniqueUsername);
         driver.findElement(By.xpath(String.format(loginInputBoxes, LoginPageEnums.PasswordInputBoxClass.value))).sendKeys(fetchUserRegisterDataExcel(2, 2));
+        waitForElement();
         driver.findElement(loginButton).click();
     }
 }

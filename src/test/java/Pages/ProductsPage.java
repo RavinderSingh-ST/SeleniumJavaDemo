@@ -4,6 +4,8 @@ import Enums.WebElementEnums.ProductsPageEnums;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import static HelperMethods.SeleniumMethods.waitForElement;
+
 public class ProductsPage {
     WebDriver driver;
 
@@ -13,7 +15,8 @@ public class ProductsPage {
         this.driver = driver;
     }
 
-    public void addBuildYourComputerToCart() {
+    public void addBuildYourComputerToCart() throws InterruptedException {
+        waitForElement();
         driver.findElement(By.xpath(String.format(desktopProductAddToCartBtn, ProductsPageEnums.BuildYourComputerText.value))).click();
     }
 }

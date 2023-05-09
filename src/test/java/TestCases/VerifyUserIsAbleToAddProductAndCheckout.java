@@ -5,7 +5,9 @@ import org.testng.annotations.Test;
 
 public class VerifyUserIsAbleToAddProductAndCheckout extends BaseClass {
     @Test
-    public void verifyUserIsAbleToAddProductAndCheckout() {
+    public void verifyUserIsAbleToAddProductAndCheckout() throws InterruptedException {
+        pageFactory.getHomePage().navigateToRegisterPage();
+        pageFactory.getRegisterPage().userRegisters();
         pageFactory.getHomePage().navigateToLoginPage();
         pageFactory.getLoginPage().userLogin();
         pageFactory.getHomePage().navigateToDesktopsPage();

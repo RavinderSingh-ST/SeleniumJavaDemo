@@ -8,6 +8,7 @@ import static HelperMethods.FetchExcelFileData.fetchUserRegisterDataExcel;
 import static HelperMethods.FetchPropertiesFileData.fetchPropertiesData;
 import static HelperMethods.GetUniqueValue.getUniqueValue;
 import static HelperMethods.SeleniumMethods.selectDropdown;
+import static HelperMethods.SeleniumMethods.waitForElement;
 
 public class RegisterPage {
     WebDriver driver;
@@ -24,14 +25,18 @@ public class RegisterPage {
         this.driver = driver;
     }
 
-    public void userRegisters() {
+    public void userRegisters() throws InterruptedException {
+        waitForElement();
         driver.findElement(By.xpath(String.format(genderRadioFieldXpath, RegisterPageEnums.MaleRadioFieldClass.value))).click();
         driver.findElement(By.xpath(String.format(registerInputFieldsXpath, RegisterPageEnums.FirstNameInputFieldName.value))).sendKeys(fetchUserRegisterDataExcel(2, 0));
         driver.findElement(By.xpath(String.format(registerInputFieldsXpath, RegisterPageEnums.LastNameInputFieldName.value))).sendKeys(fetchUserRegisterDataExcel(2, 1));
+        waitForElement();
         selectDropdown(driver.findElement(By.xpath(String.format(dateOfBirthDropdownXpath, RegisterPageEnums.DayDropdownName.value)))).selectByValue(fetchPropertiesData("Day_Of_Birth"));
         selectDropdown(driver.findElement(By.xpath(String.format(dateOfBirthDropdownXpath, RegisterPageEnums.MonthDropdownName.value)))).selectByValue(fetchPropertiesData("Month_Of_Birth"));
+        waitForElement();
         selectDropdown(driver.findElement(By.xpath(String.format(dateOfBirthDropdownXpath, RegisterPageEnums.YearDropdownName.value)))).selectByValue(fetchPropertiesData("Year_Of_Birth"));
         driver.findElement(By.xpath(String.format(registerInputFieldsXpath, RegisterPageEnums.EmailInputFieldName.value))).sendKeys(uniqueUsername);
+        waitForElement();
         driver.findElement(By.xpath(String.format(registerInputFieldsXpath, RegisterPageEnums.PasswordInputFieldName.value))).sendKeys(fetchUserRegisterDataExcel(2, 2));
         driver.findElement(By.xpath(String.format(registerInputFieldsXpath, RegisterPageEnums.ConfirmPasswordInputFieldName.value))).sendKeys(fetchUserRegisterDataExcel(2, 2));
         driver.findElement(registerButton).click();

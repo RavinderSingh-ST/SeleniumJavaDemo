@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import static HelperMethods.FetchPropertiesFileData.fetchPropertiesData;
 import static HelperMethods.SeleniumMethods.selectDropdown;
+import static HelperMethods.SeleniumMethods.waitForElement;
 
 public class ProductDescriptionPage {
     WebDriver driver;
@@ -26,13 +27,16 @@ public class ProductDescriptionPage {
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
-    public void buildYourComputerInfo() {
+    public void buildYourComputerInfo() throws InterruptedException {
+        waitForElement();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(String.format(buildComputerCustomDropdown, ProductDescriptionPageEnums.ProcessorDropdownLabelText.value))));
         selectDropdown(driver.findElement(By.xpath(String.format(buildComputerCustomDropdown, ProductDescriptionPageEnums.ProcessorDropdownLabelText.value)))).selectByVisibleText(fetchPropertiesData("Processor_Option"));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(String.format(buildComputerCustomDropdown, ProductDescriptionPageEnums.RamDropdownLabelText.value))));
+        waitForElement();
         selectDropdown(driver.findElement(By.xpath(String.format(buildComputerCustomDropdown, ProductDescriptionPageEnums.RamDropdownLabelText.value)))).selectByVisibleText(fetchPropertiesData("Ram_Option"));
         driver.findElement(By.xpath(String.format(hardDiskOptionRadioBtn, ProductDescriptionPageEnums.Hdd400Text.value))).click();
         driver.findElement(By.xpath(String.format(osOptionRadioBtn, ProductDescriptionPageEnums.VistaHomeText.value))).click();
+        waitForElement();
         driver.findElement(By.xpath(String.format(softwareOptionRadioBtn, ProductDescriptionPageEnums.TotalCommanderText.value))).click();
         driver.findElement(addToCartBtn).click();
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(productAddNotifyBar));

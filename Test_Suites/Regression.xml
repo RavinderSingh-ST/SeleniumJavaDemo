@@ -4,11 +4,11 @@
         <listener class-name="ExtentReporter.Listeners"/>
     </listeners>
 
-    <test name="Verify user is able to register and login">
-        <classes>
-            <class name="TestCases.VerifyUserIsAbleToRegisterAndLogin"/>
-        </classes>
-    </test>
+<!--    <test name="Verify user is able to register and login">-->
+<!--        <classes>-->
+<!--            <class name="TestCases.VerifyUserIsAbleToRegisterAndLogin"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 
     <test name="Verify user is able to add product and checkout">
         <classes>

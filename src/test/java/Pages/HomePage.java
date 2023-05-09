@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import static HelperMethods.FetchPropertiesFileData.fetchPropertiesData;
 import static HelperMethods.SeleniumMethods.getActions;
+import static HelperMethods.SeleniumMethods.waitForElement;
 
 public class HomePage {
     WebDriver driver;
@@ -21,27 +22,33 @@ public class HomePage {
         this.driver = driver;
     }
 
-    public void navigateToRegisterPage() {
+    public void navigateToRegisterPage() throws InterruptedException {
+        waitForElement();
         driver.findElement(By.xpath(String.format(navbarHeaderLinks, NavbarHeaderLinkEnums.RegisterHeaderLinkClass.value))).click();
         Assert.assertEquals(driver.findElement(verifyPageTitle).getText(), fetchPropertiesData("Register_Page_Title"));
     }
 
-    public void navigateToLoginPage() {
+    public void navigateToLoginPage() throws InterruptedException {
+        waitForElement();
         driver.findElement((By.xpath(String.format(navbarHeaderLinks, NavbarHeaderLinkEnums.LoginHeaderLinkClass.value)))).click();
         Assert.assertEquals(driver.findElement(verifyPageTitle).getText(), fetchPropertiesData("Login_Page_Title"));
     }
 
-    public void navigateToCartPage() {
+    public void navigateToCartPage() throws InterruptedException {
+        waitForElement();
         driver.findElement(By.xpath(String.format(navbarHeaderLinks, NavbarHeaderLinkEnums.CartLinkClass.value))).click();
         Assert.assertEquals(driver.findElement(verifyPageTitle).getText(), fetchPropertiesData("Cart_Page_Title"));
     }
 
-    public void navigateToDesktopsPage() {
+    public void navigateToDesktopsPage() throws InterruptedException {
+        waitForElement();
         getActions(driver).moveToElement(driver.findElement(By.xpath(String.format(topMenuProductLinks, HomePageEnums.ComputersProductMenuText.value)))).perform();
         driver.findElement(By.xpath(String.format(computerDropdownOptions, HomePageEnums.DesktopDropdownOptionText.value))).click();
     }
 
-    public void userLogout() {
+    public void userLogout() throws InterruptedException {
+        waitForElement();
         driver.findElement(By.xpath(String.format(navbarHeaderLinks, NavbarHeaderLinkEnums.LogoutHeaderLinkClass.value))).click();
+        waitForElement();
     }
 }

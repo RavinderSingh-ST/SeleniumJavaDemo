@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import static HelperMethods.FetchPropertiesFileData.fetchPropertiesData;
 import static HelperMethods.SeleniumMethods.selectDropdown;
+import static HelperMethods.SeleniumMethods.waitForElement;
 
 public class CheckoutPage {
     WebDriver driver;
@@ -27,39 +28,51 @@ public class CheckoutPage {
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
-    public void enterBillingDetails() {
+    public void enterBillingDetails() throws InterruptedException {
+        waitForElement();
         selectDropdown(driver.findElement(countryDropdown)).selectByVisibleText(fetchPropertiesData("Country"));
         driver.findElement(By.xpath(String.format(billingAddressInputBoxes, CheckoutPageEnums.CityInputBoxName.value))).sendKeys(fetchPropertiesData("City"));
         driver.findElement(By.xpath(String.format(billingAddressInputBoxes, CheckoutPageEnums.Address1InputBoxName.value))).sendKeys(fetchPropertiesData("Address1"));
+        waitForElement();
         driver.findElement(By.xpath(String.format(billingAddressInputBoxes, CheckoutPageEnums.Address2InputBoxName.value))).sendKeys(fetchPropertiesData("Address2"));
         driver.findElement(By.xpath(String.format(billingAddressInputBoxes, CheckoutPageEnums.ZipCodeInputBoxName.value))).sendKeys(fetchPropertiesData("Zip_Code"));
+        waitForElement();
         driver.findElement(By.xpath(String.format(billingAddressInputBoxes, CheckoutPageEnums.PhoneNumberInputBoxName.value))).sendKeys(fetchPropertiesData("Phone"));
         driver.findElement(By.xpath(String.format(continueCheckoutButton, CheckoutPageEnums.NewAddressContinueBtnClass.value))).click();
     }
 
-    public void chooseShippingMethod() {
+    public void chooseShippingMethod() throws InterruptedException {
+        waitForElement();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(String.format(shippingMethodRadioBtn, CheckoutPageEnums.NextDayAirShippingMethodRadioBtnText.value))));
         driver.findElement(By.xpath(String.format(shippingMethodRadioBtn, CheckoutPageEnums.NextDayAirShippingMethodRadioBtnText.value))).click();
+        waitForElement();
         driver.findElement(By.xpath(String.format(continueCheckoutButton, CheckoutPageEnums.ShippingMethodContinueBtnClass.value))).click();
     }
 
-    public void enterCardDetailsAndConfirmOrder() {
+    public void enterCardDetailsAndConfirmOrder() throws InterruptedException {
+        waitForElement();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(String.format(paymentMethodRadioBtn, CheckoutPageEnums.CreditCartPaymentRadioBtnText.value))));
         driver.findElement(By.xpath(String.format(paymentMethodRadioBtn, CheckoutPageEnums.CreditCartPaymentRadioBtnText.value))).click();
         driver.findElement(By.xpath(String.format(continueCheckoutButton, CheckoutPageEnums.PaymentMethodContinueBtnClass.value))).click();
+        waitForElement();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(String.format(cardDetailsDropdown, CheckoutPageEnums.CreditCardTypeDropdownName.value))));
         selectDropdown(driver.findElement(By.xpath(String.format(cardDetailsDropdown, CheckoutPageEnums.CreditCardTypeDropdownName.value)))).selectByVisibleText(fetchPropertiesData("Credit_Card_Type"));
         driver.findElement(By.xpath(String.format(cardDetailsInputBox, CheckoutPageEnums.CardHolderNameInputBoxName.value))).sendKeys(fetchPropertiesData("Card_Holder_Name"));
+        waitForElement();
         driver.findElement(By.xpath(String.format(cardDetailsInputBox, CheckoutPageEnums.CardNumberInputBoxName.value))).sendKeys(fetchPropertiesData("Card_Number"));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(String.format(cardDetailsDropdown, CheckoutPageEnums.CardExpireMonthDropdownName.value))));
         selectDropdown(driver.findElement(By.xpath(String.format(cardDetailsDropdown, CheckoutPageEnums.CardExpireMonthDropdownName.value)))).selectByVisibleText(fetchPropertiesData("Card_Expire_Month"));
+        waitForElement();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(String.format(cardDetailsDropdown, CheckoutPageEnums.CardExpireYearDropdownName.value))));
         selectDropdown(driver.findElement(By.xpath(String.format(cardDetailsDropdown, CheckoutPageEnums.CardExpireYearDropdownName.value)))).selectByVisibleText(fetchPropertiesData("Card_Expire_Year"));
         driver.findElement(By.xpath(String.format(cardDetailsInputBox, CheckoutPageEnums.CardCodeInputBoxName.value))).sendKeys(fetchPropertiesData("Card_Code"));
+        waitForElement();
         driver.findElement(By.xpath(String.format(continueCheckoutButton, CheckoutPageEnums.PaymentInfoContinueBtnClass.value))).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(String.format(continueCheckoutButton, CheckoutPageEnums.ConfirmOrderContinueBtnClass.value))));
         driver.findElement(By.xpath(String.format(continueCheckoutButton, CheckoutPageEnums.ConfirmOrderContinueBtnClass.value))).click();
+        waitForElement();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(String.format(continueCheckoutButton, CheckoutPageEnums.OrderCompleteContinueBtnClass.value))));
         driver.findElement(By.xpath(String.format(continueCheckoutButton, CheckoutPageEnums.OrderCompleteContinueBtnClass.value))).click();
+        waitForElement();
     }
 }
